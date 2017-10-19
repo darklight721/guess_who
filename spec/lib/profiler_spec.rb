@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe GuessWho::Profiler do
+describe GuessWhoNoFuzzy::Profiler do
   it "should generate a guess for the name from an email with 1 word" do
     email = "john.doe@gmail.com"
-    profiler = GuessWho::Profiler.profile!(email)
+    profiler = GuessWhoNoFuzzy::Profiler.profile!(email)
 
     puts "Running for #{email}..."
 
@@ -23,12 +23,12 @@ describe GuessWho::Profiler do
       'leoramauch':          ['Leora', 'Mauch'],
       'jamika.mcgranahan':   ['Jamika', 'Mcgranahan'],
       'celestinachittenden': ['Celestina', 'Chittenden'],
-      'jadacwalson':         ['Ja', 'Dac', 'Walson'],
+      'jadacwalson':         ['Jada', 'C', 'Walson'],
       'denese.d.eichler':    ['Denese', 'D', 'Eichler'],
       'marybethgant':        ['Marybeth', 'Gant'],
       'ashleamondy':         ['Ashlea', 'Mondy'],
       'brittanynowakowski':  ['Brittany', 'Nowakowski'],
-      'nelliersepeda':       ['Nellier', 'Sepeda'],
+      'nelliersepeda':       ['Nellie', 'R', 'Sepeda'],
       'anastasia.matchett':  ['Anastasia', 'Matchett'],
       'glory.mclester':      ['Glory', 'Mclester'],
       'wilburn.f.hinkson':   ['Wilburn', 'F', 'Hinkson'],
@@ -38,7 +38,7 @@ describe GuessWho::Profiler do
 
     test_names.each do |name, extracted|
       print  "Running for #{name}..."
-      profiler = GuessWho::Profiler.profile!(name.to_s)
+      profiler = GuessWhoNoFuzzy::Profiler.profile!(name.to_s)
       print  " Got #{profiler.full_name}"
       puts "\n"
       profiler.full_name.should == extracted.join(" ")

@@ -1,4 +1,4 @@
-module GuessWho
+module GuessWhoNoFuzzy
   class Scorer
     def self.score!(token_arrays, &block)
       scores = []
@@ -20,17 +20,18 @@ module GuessWho
       score = 0
 
       @token_array.each do |token|
-        first_char = token[0][0]
-        names = NamesLoader.names_by_first_letter(first_char)
-        m = Amatch::JaroWinkler.new(token)
-
-        score += names.map do |name|
-          m.match(name)
-        end.max
+        score += 1.0 if included_in_names?(token)
       end
 
       score /= @token_array.length
       score
+    end
+
+    private
+
+    def included_in_names?(token)
+      names = NamesLoader.names_by_first_letter(token[0])
+      names.include?(token)
     end
   end
 end

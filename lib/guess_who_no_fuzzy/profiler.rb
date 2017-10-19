@@ -1,4 +1,4 @@
-module GuessWho
+module GuessWhoNoFuzzy
   class Profiler
     attr_reader :full_name,
                 :email
@@ -14,8 +14,8 @@ module GuessWho
 
     def profile!
       full_name_arr = []
-      raw_str = email.split("@")[0]
-      strings = raw_str.split(/[^a-zA-Z]/)
+      raw_str = email.split("@")[0].upcase
+      strings = raw_str.split(/[^A-Z]/)
 
       strings.each do |str|
         best = {

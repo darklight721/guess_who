@@ -1,4 +1,4 @@
-module GuessWho
+module GuessWhoNoFuzzy
   module Comparator
     def self.better?(contender, best, contender_length, best_length)
       if contender >= best
